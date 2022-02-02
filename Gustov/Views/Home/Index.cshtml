@@ -30,13 +30,29 @@
                 }).then(function (response) {
                     $scope.mensaje = response.data;
 
-                    swal("Se guardo el plato", "Registro de Platos", "success");
+                    swal($scope.mensaje, "Registro de Platos", "success");
                     //$scope.clickCancelar();
                     $scope.cargarInicio();
                     $scope.MhideModalNuevo=true;
                 });
 
         }
+
+        $scope.seleccionarPlato = function (id_plato) {
+
+            $http.get('/Home/getPlato', { params: { id_plato: id_plato } })
+                .then(function (response) {
+
+                    $scope.plato = response.data;
+                    $scope.Mid_plato = response.data[0].id_plato;
+                    $scope.Mnombre_editar_plato = response.data[0].nombre_plato;
+                    $scope.Mcantidad_editar_plato = response.data[0].cantidad_plato;
+                    console.log($scope.plato);
+
+                });
+
+        }
+
         $scope.clickGuardarVenta = function (valor) {
 
                 $scope.plato = {};
@@ -54,6 +70,61 @@
                     swal("Se guardo el plato", "Registro de Platos", "success");
                     //$scope.clickCancelar();
                     $scope.cargarInicio();
+                });
+
+        }
+
+        $scope.editarPlato = function (id_plato) {
+            $scope.plato = {};
+            $scope.plato.id_plato = $scope.Mid_plato;
+            $scope.plato.nombre_plato = $scope.Mnombre_editar_plato;
+            $scope.plato.cantidad_plato = $scope.Mcantidad_editar_plato;
+            $http({
+                method: "post",
+                url: "/Home/editarPlato",
+                datatype: "json",
+                data: JSON.stringify($scope.plato)
+            }).then(function (response) {
+                $scope.mensaje = response.data;
+                
+                swal($scope.mensaje, "Registro de Platos", "success");
+                //$scope.clickCancelar();
+                $scope.cargarInicio();
+            });
+        }
+
+        $scope.eliminarPlato = function (id_plato, nombre_plato) {
+
+            swal({
+                title: "¿Estás seguro?",
+                text: "Una vez eliminado, no podrá recuperar el plato",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        $http({
+                            method: "post",
+                            url: "/Home/eliminarPlato",
+                            datatype: "json",
+                            params: { id_plato: id_plato, nombre_plato: nombre_plato }
+                        }).then(function (response) {
+                            $scope.mensaje = response.data;
+                            $scope.cargarInicio();
+
+                            swal($scope.mensaje, "Plato Eliminado", "success");
+
+
+                        });
+
+
+                    } else {
+                        swal("No se eliminó el Plato", {
+                            icon: "error",
+                        });
+                    }
                 });
 
         }
@@ -422,6 +493,7 @@
                                                 <th>Nro </th>
                                                 <th>Plato</th>
                                                 <th>Cantidad</th>
+                                                <th>Acción</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -429,7 +501,10 @@
                                                 <td>{{$index + 1}}</td>
                                                 <td>{{l.nombre_plato}}</td>
                                                 <td>{{l.cantidad_plato}}</td>
-
+                                                <td>
+                                                    <a ng-click="seleccionarPlato(l.id_plato)" class="settings" title="Editar plato" data-toggle="modal" data-target="#editar"><i class="fa fa-edit" style="color: #1c84c6"></i></a>
+                                                    <a ng-click="eliminarPlato(l.id_plato, l.nombre_plato)" class="delete" title="Eliminar plato" data-toggle="tooltip"><i class="fa fa-user-times"></i></a>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -481,6 +556,7 @@
         </div>
     </div>
     @Html.Partial("_Nuevo")
+    @Html.Partial("_Editar")
     @Html.Partial("_Reporte")
 
 </div>

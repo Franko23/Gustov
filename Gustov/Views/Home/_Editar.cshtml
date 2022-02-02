@@ -1,0 +1,46 @@
+﻿
+
+<div class="modal inmodal" id="editar" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false" ng-hide="MhideModalEditar">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h6 class="modal-title">Editar plato para el menú</h6>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ng-form name="myForm2" novalidate>
+                            <div class="form-group">
+
+                                <label>
+                                    Nombre
+                                </label>
+                                <input type="text" min="1" name="nombre_editar_plato" class="form-control" ng-model="Mnombre_editar_plato" placeholder="Nombre del plato" required>
+                            </div>
+                            <div class="form-group">
+
+                                <label>
+                                    Cantidad
+                                </label>
+                                <input type="number" min="1" name="cantidad_editar" class="form-control" ng-model="Mcantidad_editar_plato" placeholder="Cantidad de platos" required>
+                                <span style="color:red" ng-show="myForm1.cantidad_editar.$dirty">
+                                    <span ng-show="myForm2.cantidad_editar.$error.required">Cantidad mínima "1"</span>
+                                </span>
+                            </div>
+
+
+                            <button type="submit" ng-hide="MhideGuardarEditar"
+                                    ng-disabled="!myForm2.$valid"
+                                    class="btn btn-primary" ng-click="editarPlato()" data-dismiss="modal">
+                                <span class="glyphicon glyphicon-floppy-save"></span> Guardar
+                            </button>
+                            <button type="button" id="btnCancelar" class="btn btn-danger" data-dismiss="modal" ng-click="cargarInicio()"> <span class="glyphicon glyphicon-floppy-remove"></span> Cancelar</button>
+                        </ng-form>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
