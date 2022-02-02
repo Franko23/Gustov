@@ -62,5 +62,17 @@ namespace Gustov.Controllers
             return new JsonResult { Data = listaPlatos, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+        public JsonResult insertarPlato(platos platos)
+        {
+            
+
+            // Insertar Nuevo plato
+            
+            db.platos.Add(platos);
+            db.SaveChanges();
+
+            return new JsonResult { Data = "Guardado", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
     }
 }

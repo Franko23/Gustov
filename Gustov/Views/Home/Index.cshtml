@@ -16,6 +16,48 @@
                 });
         }
 
+        $scope.clickGuardarNuevo = function (valor) {
+
+                $scope.plato = {};
+                $scope.plato.nombre_plato = $scope.Mnombre_nuevo_plato;
+                $scope.plato.cantidad_plato = $scope.Mcantidad_nuevo;
+
+                $http({
+                    method: "post",
+                    url: "/Home/insertarPlato",
+                    datatype: "json",
+                    data: JSON.stringify($scope.plato)
+                }).then(function (response) {
+                    $scope.mensaje = response.data;
+
+                    swal("Se guardo el plato", "Registro de Platos", "success");
+                    //$scope.clickCancelar();
+                    $scope.cargarInicio();
+                    $scope.MhideModalNuevo=true;
+                });
+
+        }
+        $scope.clickGuardarVenta = function (valor) {
+
+                $scope.plato = {};
+                $scope.plato.nuevo_plato = $scope.Mnombre_nuevo_plato;
+                $scope.plato.cantidad = $scope.Mcantidad_platos;
+
+                $http({
+                    method: "post",
+                    url: "/Home/insertarPlato",
+                    datatype: "json",
+                    data: JSON.stringify($scope.plato)
+                }).then(function (response) {
+                    $scope.mensaje = response.data;
+
+                    swal("Se guardo el plato", "Registro de Platos", "success");
+                    //$scope.clickCancelar();
+                    $scope.cargarInicio();
+                });
+
+        }
+
     });
 </script>
 
@@ -357,8 +399,9 @@
                                 <h2>Gustov <b>/ Platos Bolivianos</b></h2>
                             </div>
                             <div class="col-sm-7">
-                                <button id="btnAbrirModal" class="btn btn-primary" style="background-color:#b02818;border-color:#0000FF;color:#FDFEFE" data-toggle="modal" data-target="#reporteRRHH"><i class="fa fa-print"></i> Reporte Diario</button>
-                                <a style="background-color:#fff;" ng-click="clickAgregar()" class="btn btn-primary"><i class="fa fa-plus-square"></i> <span>Agregar nuevo plato</span></a>
+                                <button id="btnAbrirModal" class="btn btn-primary" style="background-color:#FDFEFE;color:#222" data-toggle="modal" data-target="#reporte"><i class="fa fa-print"></i> Reporte Diario</button>
+                                <button id="btnNuevo" class="btn btn-primary" style="background-color:#FDFEFE;color:#222" data-toggle="modal" data-target="#nuevo"><i class="fa fa-print"></i> Nuevo plato</button>
+                                @*<a style="background-color:#fff;" ng-click="clickAgregar()" class="btn btn-primary"><i class="fa fa-plus-square"></i> <span>Agregar nuevo plato</span></a>*@
 
 
                                 @*<a href="#" class="btn btn-primary"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>*@
@@ -405,7 +448,7 @@
                                             </label>
                                             <select name="id_plato" ng-model="Midplato" class="form-control" ng-options="lc.id_plato as lc.nombre_plato for lc in listaMenu" required>
                                                 <option value="">{{listaMenu.idPlato}}</option>
-                                                
+
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -427,7 +470,7 @@
                                         </button>
                                     </ng-form>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -437,7 +480,8 @@
             </div>
         </div>
     </div>
+    @Html.Partial("_Nuevo")
+    @Html.Partial("_Reporte")
 
-   
-    </div>
+</div>
  
