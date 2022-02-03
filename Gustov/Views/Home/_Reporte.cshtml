@@ -1,6 +1,6 @@
 ﻿
 
-<div class="modal inmodal" id="reporte" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false" ng-hide="hideModal">
+<div class="modal inmodal" id="reporte" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false" ng-hide="hideModalreporte">
     <div class="modal-dialog">
         <div class="modal-content animated flipInY">
             <div class="modal-header">
@@ -13,13 +13,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label>Elige la fecha</label>
-                                <select ng-model="MTipoC" class="form-control" style="font-size:x-small" ng-change="changeTipo(MTipoC)">
-
-                                    <option value="No">No</option>
-                                    <option value="">Si</option>
-
-                                </select>
-                                @*<i class="pull-right text-danger" ng-hide="hidePeriodoC">{{ mensajePeriodoC}}</i>*@
+                                <input type="date" name="fecha_reporte" id="fecha_reporte" ng-model="Mfecha_reporte" class="form-control" placeholder="dia-mes-año" required>
                             </div>
                         </div>
                     </div>
@@ -27,7 +21,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" style="background-color:#0000FF;border-color:#0000FF;color:#FFFFFF" ng-click="validate()"><i class="fa fa-print"></i> Imprimir PDF</button>
+                <button class="btn btn-primary" style="background-color:#0000FF;border-color:#0000FF;color:#FFFFFF" ng-click="imprimirReporteDiario()"><i class="fa fa-print"></i> Imprimir PDF</button>
                 <button type="button" style="background-color:#FF0000;border-color:#FF0000;color:#FFFFFF" class="btn btn-warning" data-dismiss="modal" id="cancelar" ng-click="cancelar()"><i class="fa fa-close"></i> Cancelar</button>
             </div>
         </div>
