@@ -22,6 +22,7 @@
 
                 $scope.plato = {};
                 $scope.plato.nombre_plato = $scope.Mnombre_nuevo_plato;
+                $scope.plato.precio_unitario = $scope.Mprecio_nuevo_plato;
                 $scope.plato.cantidad_plato = $scope.Mcantidad_nuevo;
 
                 $http({
@@ -48,6 +49,7 @@
                     $scope.plato = response.data;
                     $scope.Mid_plato = response.data[0].id_plato;
                     $scope.Mnombre_editar_plato = response.data[0].nombre_plato;
+                    $scope.Mprecio_editar_plato = response.data[0].precio_unitario;
                     $scope.Mcantidad_editar_plato = response.data[0].cantidad_plato;
                     console.log($scope.plato);
 
@@ -59,6 +61,7 @@
             $scope.plato = {};
             $scope.plato.id_plato = $scope.Mid_plato;
             $scope.plato.nombre_plato = $scope.Mnombre_editar_plato;
+            $scope.plato.precio_unitario = $scope.Mprecio_editar_plato;
             $scope.plato.cantidad_plato = $scope.Mcantidad_editar_plato;
             $http({
                 method: "post",
@@ -114,8 +117,9 @@
         $scope.clickGuardarVenta = function () {
 
             $scope.venta = {};
-            $scope.venta.id_plato = $scope.Mventa_id_plato;
+            $scope.venta.id_plato = $scope.Mventa_id_plato;           
             $scope.venta.cantidad_plato = $scope.Mventa_cantidad_plato;
+            $scope.venta.descripcion_venta = $scope.Mventa_descripcion;
 
             $http({
                 method: "post",
@@ -496,6 +500,7 @@
                                             <tr>
                                                 <th>Nro </th>
                                                 <th>Plato</th>
+                                                <th>Precio unitario</th>
                                                 <th>Cantidad</th>
                                                 <th>Acción</th>
                                             </tr>
@@ -504,6 +509,7 @@
                                             <tr ng-repeat="l in listaMenu">
                                                 <td>{{$index + 1}}</td>
                                                 <td>{{l.nombre_plato}}</td>
+                                                <td>{{l.precio_unitario}}</td>
                                                 <td>{{l.cantidad_plato}}</td>
                                                 <td style="cursor: pointer;">
                                                     <a ng-click="seleccionarPlato(l.id_plato)" class="settings" title="Editar plato" data-toggle="modal" data-target="#editar"><i class="fa fa-edit" style="color: #1c84c6"></i></a>
@@ -533,13 +539,17 @@
                                         </div>
                                         <div class="form-group">
 
-                                            <label for="exampleInputPassword1">
+                                            <label for="cantidad">
                                                 Cantidad
                                             </label>
                                             <input type="number" min="1" name="cantidad_plato" class="form-control" ng-model="Mventa_cantidad_plato" placeholder="Cantidad de platos" required>
                                             <span style="color:red" ng-show="myForm.cantidad_plato.$dirty && myForm.cantidad_plato.$invalid">
-                                                <span ng-show="myForm.cantidad_plato.$error.required"  ng-hide="Mventa_cantidad_plato_required">Cantidad mínima "1"</span>
+                                                <span ng-show="myForm.cantidad_plato.$error.required" ng-hide="Mventa_cantidad_plato_required">Cantidad mínima "1"</span>
                                             </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="descripcion">Descripción</label>
+                                            <textarea class="form-control" id="descripcion" rows="3" ng-model="Mventa_descripcion"></textarea>
                                         </div>
 
 

@@ -12,6 +12,7 @@
           <Property Name="id_plato" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre_plato" Type="varchar" MaxLength="50" />
           <Property Name="cantidad_plato" Type="int" />
+          <Property Name="precio_unitario" Type="decimal" Precision="20" Scale="6" />
         </EntityType>
         <EntityType Name="registro_ventas">
           <Key>
@@ -19,7 +20,11 @@
           </Key>
           <Property Name="id_ventas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_plato" Type="int" Nullable="false" />
+          <Property Name="nombre_plato" Type="varchar" MaxLength="50" />
           <Property Name="cantidad_plato" Type="int" />
+          <Property Name="precio_actual" Type="decimal" Precision="20" Scale="6" />
+          <Property Name="fecha_venta" Type="date" />
+          <Property Name="descripcion_venta" Type="text" />
         </EntityType>
         <EntityContainer Name="gustovModelStoreContainer">
           <EntitySet Name="platos" EntityType="Self.platos" Schema="gustov" store:Type="Tables" />
@@ -37,6 +42,7 @@
           <Property Name="id_plato" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre_plato" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cantidad_plato" Type="Int32" />
+          <Property Name="precio_unitario" Type="Decimal" />
         </EntityType>
         <EntityType Name="registro_ventas">
           <Key>
@@ -44,7 +50,11 @@
           </Key>
           <Property Name="id_ventas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_plato" Type="Int32" Nullable="false" />
+          <Property Name="nombre_plato" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="cantidad_plato" Type="Int32" />
+          <Property Name="precio_actual" Type="Decimal" />
+          <Property Name="fecha_venta" Type="DateTime" />
+          <Property Name="descripcion_venta" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="gustovEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="platos" EntityType="Self.platos" />
@@ -62,6 +72,7 @@
                 <ScalarProperty Name="id_plato" ColumnName="id_plato" />
                 <ScalarProperty Name="nombre_plato" ColumnName="nombre_plato" />
                 <ScalarProperty Name="cantidad_plato" ColumnName="cantidad_plato" />
+                <ScalarProperty Name="precio_unitario" ColumnName="precio_unitario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -70,7 +81,11 @@
               <MappingFragment StoreEntitySet="registro_ventas">
                 <ScalarProperty Name="id_ventas" ColumnName="id_ventas" />
                 <ScalarProperty Name="id_plato" ColumnName="id_plato" />
+                <ScalarProperty Name="nombre_plato" ColumnName="nombre_plato" />
                 <ScalarProperty Name="cantidad_plato" ColumnName="cantidad_plato" />
+                <ScalarProperty Name="precio_actual" ColumnName="precio_actual" />
+                <ScalarProperty Name="fecha_venta" ColumnName="fecha_venta" />
+                <ScalarProperty Name="descripcion_venta" ColumnName="descripcion_venta" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -28,6 +28,7 @@ namespace Gustov.Controllers
                              {
                                  p.id_plato,
                                  p.nombre_plato,
+                                 p.precio_unitario,
                                  p.cantidad_plato
                              }).ToList();
 

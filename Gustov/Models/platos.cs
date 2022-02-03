@@ -17,5 +17,6 @@ namespace Gustov.Models
         public int id_plato { get; set; }
         public string nombre_plato { get; set; }
         public Nullable<int> cantidad_plato { get; set; }
+        public Nullable<decimal> precio_unitario { get; set; }
     }
 }

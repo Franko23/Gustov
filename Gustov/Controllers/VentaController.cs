@@ -22,6 +22,25 @@ namespace Gustov.Controllers
 
             // Insertar Nueva venta
 
+            var plato = (from p in db.platos
+                         where p.id_plato == ventas.id_plato
+
+                         select new
+                         {
+                             p.nombre_plato,
+                             p.precio_unitario
+                         }).ToList();
+
+            
+
+            foreach (var item in plato)
+            {
+                ventas.nombre_plato = item.nombre_plato;
+                ventas.precio_actual = item.precio_unitario;
+            }
+
+            ventas.fecha_venta = DateTime.Now;
+            
             db.registro_ventas.Add(ventas);
             db.SaveChanges();
 

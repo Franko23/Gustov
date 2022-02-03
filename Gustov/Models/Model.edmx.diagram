@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="356ff01b9c274e4b898996bd9dcd692d" Name="Diagram1">
+      <Diagram DiagramId="1191d86e5faf49ddbae0b55301819164" Name="Diagram1">
         <EntityTypeShape EntityType="gustovModel.platos" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="gustovModel.registro_ventas" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
       </Diagram>

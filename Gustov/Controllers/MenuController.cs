@@ -39,6 +39,7 @@ namespace Gustov.Controllers
                          {
                              p.id_plato,
                              p.nombre_plato,
+                             p.precio_unitario,
                              p.cantidad_plato
                          }).ToList();
 
@@ -59,6 +60,7 @@ namespace Gustov.Controllers
             {
                 pl.nombre_plato = plato.nombre_plato;
                 pl.cantidad_plato = plato.cantidad_plato;
+                pl.precio_unitario = plato.precio_unitario;
                 db.SaveChanges();
             }
             else
