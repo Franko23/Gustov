@@ -12,7 +12,9 @@
 
                     $scope.listaMenu = response.data;
                     console.log($scope.listaMenu);
-
+                    $scope.Mventa_id_plato = "";
+                    $scope.Mventa_cantidad_plato = 1;  
+                    
                 });
         }
 
@@ -24,7 +26,7 @@
 
                 $http({
                     method: "post",
-                    url: "/Home/insertarPlato",
+                    url: "/Menu/insertarPlato",
                     datatype: "json",
                     data: JSON.stringify($scope.plato)
                 }).then(function (response) {
@@ -40,7 +42,7 @@
 
         $scope.seleccionarPlato = function (id_plato) {
 
-            $http.get('/Home/getPlato', { params: { id_plato: id_plato } })
+            $http.get('/Menu/getPlato', { params: { id_plato: id_plato } })
                 .then(function (response) {
 
                     $scope.plato = response.data;
@@ -53,27 +55,6 @@
 
         }
 
-        $scope.clickGuardarVenta = function (valor) {
-
-                $scope.plato = {};
-                $scope.plato.nuevo_plato = $scope.Mnombre_nuevo_plato;
-                $scope.plato.cantidad = $scope.Mcantidad_platos;
-
-                $http({
-                    method: "post",
-                    url: "/Home/insertarPlato",
-                    datatype: "json",
-                    data: JSON.stringify($scope.plato)
-                }).then(function (response) {
-                    $scope.mensaje = response.data;
-
-                    swal("Se guardo el plato", "Registro de Platos", "success");
-                    //$scope.clickCancelar();
-                    $scope.cargarInicio();
-                });
-
-        }
-
         $scope.editarPlato = function (id_plato) {
             $scope.plato = {};
             $scope.plato.id_plato = $scope.Mid_plato;
@@ -81,7 +62,7 @@
             $scope.plato.cantidad_plato = $scope.Mcantidad_editar_plato;
             $http({
                 method: "post",
-                url: "/Home/editarPlato",
+                url: "/Menu/editarPlato",
                 datatype: "json",
                 data: JSON.stringify($scope.plato)
             }).then(function (response) {
@@ -107,7 +88,7 @@
 
                         $http({
                             method: "post",
-                            url: "/Home/eliminarPlato",
+                            url: "/Menu/eliminarPlato",
                             datatype: "json",
                             params: { id_plato: id_plato, nombre_plato: nombre_plato }
                         }).then(function (response) {
@@ -126,6 +107,29 @@
                         });
                     }
                 });
+
+        }
+
+        //Proceso de Ventas
+        $scope.clickGuardarVenta = function () {
+
+            $scope.venta = {};
+            $scope.venta.id_plato = $scope.Mventa_id_plato;
+            $scope.venta.cantidad_plato = $scope.Mventa_cantidad_plato;
+
+            $http({
+                method: "post",
+                url: "/Venta/insertarVenta",
+                datatype: "json",
+                data: JSON.stringify($scope.venta)
+            }).then(function (response) {
+                $scope.mensaje = response.data;
+
+                swal($scope.mensaje, "Registro de Ventas", "success");
+                //$scope.clickCancelar();
+               
+                $scope.cargarInicio();
+            });
 
         }
 
@@ -501,7 +505,7 @@
                                                 <td>{{$index + 1}}</td>
                                                 <td>{{l.nombre_plato}}</td>
                                                 <td>{{l.cantidad_plato}}</td>
-                                                <td>
+                                                <td style="cursor: pointer;">
                                                     <a ng-click="seleccionarPlato(l.id_plato)" class="settings" title="Editar plato" data-toggle="modal" data-target="#editar"><i class="fa fa-edit" style="color: #1c84c6"></i></a>
                                                     <a ng-click="eliminarPlato(l.id_plato, l.nombre_plato)" class="delete" title="Eliminar plato" data-toggle="tooltip"><i class="fa fa-user-times"></i></a>
                                                 </td>
@@ -521,7 +525,8 @@
                                             <label for="nombre">
                                                 Nombre
                                             </label>
-                                            <select name="id_plato" ng-model="Midplato" class="form-control" ng-options="lc.id_plato as lc.nombre_plato for lc in listaMenu" required>
+                                            <select name="id_plato" ng-model="Mventa_id_plato" class="form-control" ng-options="lc.id_plato as lc.nombre_plato for lc in listaMenu" required>
+                                                <option value="" selected disabled hidden>Elige una opción</option>
                                                 <option value="">{{listaMenu.idPlato}}</option>
 
                                             </select>
@@ -531,16 +536,16 @@
                                             <label for="exampleInputPassword1">
                                                 Cantidad
                                             </label>
-                                            <input type="number" min="1" name="cantidad" class="form-control" ng-model="Mcantidad" placeholder="Cantidad de platos" required>
-                                            <span style="color:red" ng-show="myForm.cantidad.$dirty && myForm.cantidad.$invalid">
-                                                <span ng-show="myForm.cantidad.$error.required">Cantidad mínima "1"</span>
+                                            <input type="number" min="1" name="cantidad_plato" class="form-control" ng-model="Mventa_cantidad_plato" placeholder="Cantidad de platos" required>
+                                            <span style="color:red" ng-show="myForm.cantidad_plato.$dirty && myForm.cantidad_plato.$invalid">
+                                                <span ng-show="myForm.cantidad_plato.$error.required"  ng-hide="Mventa_cantidad_plato_required">Cantidad mínima "1"</span>
                                             </span>
                                         </div>
 
 
                                         <button type="submit" ng-hide="MhideGuardar"
                                                 ng-disabled="!myForm.$valid"
-                                                class="btn btn-primary" ng-click="clickGuardar(0)">
+                                                class="btn btn-primary" ng-click="clickGuardarVenta()">
                                             <span class="glyphicon glyphicon-floppy-save"></span> Guardar
                                         </button>
                                     </ng-form>
