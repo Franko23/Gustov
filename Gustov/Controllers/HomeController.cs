@@ -22,7 +22,7 @@ namespace Gustov.Controllers
         public JsonResult ListarMenu()
         {
 
-            var listaMenu = (from p in db.platos
+            var listaMenu = (from p in db.platos 
 
                              select new
                              {
@@ -35,7 +35,6 @@ namespace Gustov.Controllers
             return new JsonResult { Data = listaMenu, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
-        
 
     }
 }

@@ -48,6 +48,21 @@ namespace Gustov.Controllers
 
         }
 
+        public JsonResult test(string nombre)
+        {
+            string mensaje = nombre + " guardado";
+
+            return new JsonResult { Data = mensaje, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }   
+        public static string test1(string nombre)
+        {
+            string mensaje = nombre + " guardado";
+
+            return mensaje;
+        }
+
+
+
         public JsonResult editarPlato(platos plato)
         {
 

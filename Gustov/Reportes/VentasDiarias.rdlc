@@ -517,11 +517,17 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
+                <Value>Bs. </Value>
+                <Style />
+              </TextRun>
+              <TextRun>
                 <Value>=Sum(Fields!Total_pagado.Value)</Value>
                 <Style />
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox25</rd:DefaultName>
@@ -574,8 +580,8 @@
       </Textbox>
       <Rectangle Name="Rectangle1">
         <KeepTogether>true</KeepTogether>
-        <Top>5.42134cm</Top>
-        <Left>15.02578cm</Left>
+        <Top>5.38606cm</Top>
+        <Left>15.02579cm</Left>
         <Height>0.56472cm</Height>
         <Width>5cm</Width>
         <ZIndex>4</ZIndex>

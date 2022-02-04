@@ -14,10 +14,24 @@
                     console.log($scope.listaMenu);
                     $scope.Mventa_id_plato = "";
                     $scope.Mventa_cantidad_plato = 1;  
-                    $scope.Mventa_descripcion = "";  
+                    $scope.Mventa_descripcion = "";
+                    $scope.Mmensaje_cantidad = "Cantidad mínima '1'";
                     
                 });
         }
+
+        $scope.update_cantidad = function () {
+
+            $http.get('/Menu/getPlato', { params: { id_plato: $scope.Mventa_id_plato } })
+                .then(function (response) {
+
+                    $scope.plato = response.data;
+                    $scope.Mcantidad_plato_temp = response.data[0].cantidad_plato;
+
+                });
+        }
+
+
 
         $scope.clickGuardarNuevo = function (valor) {
 
@@ -122,19 +136,29 @@
             $scope.venta.cantidad_plato = $scope.Mventa_cantidad_plato;
             $scope.venta.descripcion_venta = $scope.Mventa_descripcion;
 
-            $http({
-                method: "post",
-                url: "/Venta/insertarVenta",
-                datatype: "json",
-                data: JSON.stringify($scope.venta)
-            }).then(function (response) {
-                $scope.mensaje = response.data;
+           
+            $scope.Mventa_cantidad_plato_required = true;
+            if ($scope.Mcantidad_plato_temp >= $scope.venta.cantidad_plato) {
+                $http({
+                    method: "post",
+                    url: "/Venta/insertarVenta",
+                    datatype: "json",
+                    data: JSON.stringify($scope.venta)
+                }).then(function (response) {
+                    $scope.mensaje = response.data;
 
-                swal($scope.mensaje, "Registro de Ventas", "success");
-                //$scope.clickCancelar();
-               
-                $scope.cargarInicio();
-            });
+                    swal($scope.mensaje, "Registro de Ventas", "success");
+                    //$scope.clickCancelar();
+
+                    $scope.cargarInicio();
+                });
+            } else {
+                $scope.Mmensaje_cantidad = "La cantidad máxima es de " + $scope.Mcantidad_plato_temp+" platos";
+                $scope.Mventa_cantidad_plato = 0;
+                $scope.Mventa_cantidad_plato_required = false;
+            }
+
+            
 
         }
 
@@ -544,7 +568,7 @@
                                             <label for="nombre">
                                                 Nombre
                                             </label>
-                                            <select name="id_plato" ng-model="Mventa_id_plato" class="form-control" ng-options="lc.id_plato as lc.nombre_plato for lc in listaMenu" required>
+                                            <select name="id_plato" ng-model="Mventa_id_plato" class="form-control" ng-options="lc.id_plato as lc.nombre_plato disable when lc.cantidad_plato == 0 for lc in listaMenu" required ng-change="update_cantidad()">
                                                 <option value="" selected disabled hidden>Elige una opción</option>
                                                 <option value="">{{listaMenu.idPlato}}</option>
 
@@ -557,7 +581,7 @@
                                             </label>
                                             <input type="number" min="1" name="cantidad_plato" class="form-control" ng-model="Mventa_cantidad_plato" placeholder="Cantidad de platos" required>
                                             <span style="color:red" ng-show="myForm.cantidad_plato.$dirty && myForm.cantidad_plato.$invalid">
-                                                <span ng-show="myForm.cantidad_plato.$error.required" ng-hide="Mventa_cantidad_plato_required">Cantidad mínima "1"</span>
+                                                <span ng-show="myForm.cantidad_plato.$error.required" ng-hide="Mventa_cantidad_plato_required">{{Mmensaje_cantidad}}</span>
                                             </span>
                                         </div>
                                         <div class="form-group">

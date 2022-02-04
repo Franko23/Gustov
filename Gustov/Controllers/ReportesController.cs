@@ -38,14 +38,6 @@ namespace Gustov.Controllers
 
             rd = new ReportDataSource("VentasDiarias", DSImprimirDiario(fc).Tables[0]);
 
-            //LocalReporte.EnableExternalImages = true;
-            //string imagePath = new Uri(Server.MapPath("~/Images/Empresas/" + idEmpresa + ".jpg")).AbsoluteUri;
-
-            ////var logo = "/Images/Empresas/" + idEmpresa + ".jpg";
-            //ReportParameter parametro2 = new ReportParameter("logo", imagePath);
-            //LocalReporte.SetParameters(parametro2);
-            //LocalReporte.DataSources.Add(rd);
-
 
             if (System.IO.File.Exists(LocalReporte.ReportPath))
             {
@@ -55,11 +47,6 @@ namespace Gustov.Controllers
             {
                 return View("Index");
             }
-
-            // Insertar Imagen
-            //lr.EnableExternalImages = true;
-            //var Qr = "Hola Mundo";
-            //lr.SetParameters(parametro);
 
             LocalReporte.DataSources.Add(rd);
             string reportType = tipo;
