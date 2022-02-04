@@ -18,10 +18,9 @@ namespace Gustov.Controllers
             return View();
         }
 
+        //Método para Insertar un nuevo registro
         public JsonResult insertarPlato(platos platos)
         {
-
-            // Insertar Nuevo plato
 
             db.platos.Add(platos);
             db.SaveChanges();
@@ -29,6 +28,7 @@ namespace Gustov.Controllers
             return new JsonResult { Data = platos.nombre_plato + " agregado correctamente", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+        //Método para recuperar el registro del plato selecciondo por medio del id
         public JsonResult getPlato(int id_plato)
         {
 
@@ -48,21 +48,7 @@ namespace Gustov.Controllers
 
         }
 
-        public JsonResult test(string nombre)
-        {
-            string mensaje = nombre + " guardado";
-
-            return new JsonResult { Data = mensaje, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }   
-        public static string test1(string nombre)
-        {
-            string mensaje = nombre + " guardado";
-
-            return mensaje;
-        }
-
-
-
+        //Método para enviar el registro editado
         public JsonResult editarPlato(platos plato)
         {
 
@@ -86,6 +72,7 @@ namespace Gustov.Controllers
             return new JsonResult { Data = mensaje, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+        //Método para eliminar el registro por medio del id
         public JsonResult eliminarPlato(int id_plato, string nombre_plato)
         {
 
@@ -106,5 +93,21 @@ namespace Gustov.Controllers
             return new JsonResult { Data = mensaje, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
+
+
+        //Métodos para los test unitarios
+        public JsonResult test(string nombre)
+        {
+            string mensaje = nombre + " guardado";
+
+            return new JsonResult { Data = mensaje, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public static string test1(string nombre)
+        {
+            string mensaje = nombre + " guardado";
+
+            return mensaje;
+        }
+
     }
 }

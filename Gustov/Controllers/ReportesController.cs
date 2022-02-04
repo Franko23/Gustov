@@ -28,6 +28,7 @@ namespace Gustov.Controllers
             return View();
         }
 
+        //Método para configurar la vista del reporte
         public ActionResult ImprimirDiario(string fc)
         {
             
@@ -82,6 +83,7 @@ namespace Gustov.Controllers
 
         }
 
+        //Método para recuperar los datos de la bd y enviarla a la vista del reporte
         public DataSet DSImprimirDiario(string fecha)
         {
             string sql = "call reporte_diario('" + fecha + "') ; ";

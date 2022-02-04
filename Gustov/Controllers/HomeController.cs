@@ -19,6 +19,7 @@ namespace Gustov.Controllers
             return View();
         }
 
+        //Método para listar el menu en la primera carga
         public JsonResult ListarMenu()
         {
 

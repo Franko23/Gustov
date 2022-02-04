@@ -6,6 +6,7 @@
     app = angular.module("HomeApp",[]);
     app.controller("HomeController", function ($scope, $http, $window) {
 
+        ////Funciones de carga para recuperar y enviar datos
         $scope.cargarInicio = function () {
             $http.get('/Home/ListarMenu')
                 .then(function (response) {
@@ -20,6 +21,7 @@
                 });
         }
 
+        //Actualizar cantidad de platos para validación de venta
         $scope.update_cantidad = function () {
 
             $http.get('/Menu/getPlato', { params: { id_plato: $scope.Mventa_id_plato } })
@@ -31,9 +33,8 @@
                 });
         }
 
-
-
-        $scope.clickGuardarNuevo = function (valor) {
+        //Función para guardar nuevo plato a la lista del menú
+        $scope.clickGuardarNuevo = function () {
 
                 $scope.plato = {};
                 $scope.plato.nombre_plato = $scope.Mnombre_nuevo_plato;
@@ -56,6 +57,7 @@
 
         }
 
+        //Función para recuperar los datos del plato seleccionado de la lista de la tabla
         $scope.seleccionarPlato = function (id_plato) {
 
             $http.get('/Menu/getPlato', { params: { id_plato: id_plato } })
@@ -72,6 +74,7 @@
 
         }
 
+        //Función para enviar los nuevos valores del plato editado
         $scope.editarPlato = function (id_plato) {
             $scope.plato = {};
             $scope.plato.id_plato = $scope.Mid_plato;
@@ -92,6 +95,7 @@
             });
         }
 
+        //Función para eliminar el plato seleccionado de la lista
         $scope.eliminarPlato = function (id_plato, nombre_plato) {
 
             swal({
@@ -128,7 +132,7 @@
 
         }
 
-        //Proceso de Ventas
+        //Función para guardar el nuevo registro de ventas
         $scope.clickGuardarVenta = function () {
 
             $scope.venta = {};
@@ -162,7 +166,7 @@
 
         }
 
-        //Reportes
+        //Función para reportes
         $scope.imprimirReporteDiario = function () {
             
             var a = $scope.Mfecha_reporte.getFullYear();
@@ -178,112 +182,14 @@
 </script>
 
 <style type="text/css">
-    /*    body {
-        color: #566787;
-        background: #f5f5f5;
-        font-family: 'Varela Round', sans-serif;
-        font-size: 13px;
-    }*/
 
-
-    .file-upload {
-        width: 100%;
-        margin: 0 auto;
-    }
-
-    .file-upload-btn {
-        width: 100%;
-        margin: 0;
-        color: #fff;
-        background: #1FB264;
-        border: none;
-        padding: 10px;
-        border-radius: 4px;
-        border-bottom: 4px solid #15824B;
-        transition: all .2s ease;
-        outline: none;
-        text-transform: uppercase;
-        font-weight: 700;
-    }
-
-        .file-upload-btn:hover {
-            background: #1AA059;
-            color: #ffffff;
-            transition: all .2s ease;
-            cursor: pointer;
-        }
-
-        .file-upload-btn:active {
-            border: 0;
-            transition: all .2s ease;
-        }
-
-    .file-upload-content {
-        display: none;
+    .inmodal .modal-title {
+        font-size: 26px;
+        font-weight: 100;
+        color: inherit;
         text-align: center;
+        box-sizing: border-box;
     }
-
-    .file-upload-input {
-        position: absolute;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        outline: none;
-        opacity: 0;
-        cursor: pointer;
-    }
-
-    .image-upload-wrap {
-        margin-top: 20px;
-        border: 4px dashed #1FB264;
-        position: relative;
-    }
-
-        .image-dropping,
-        .image-upload-wrap:hover {
-            background-color: #1FB264;
-            border: 4px dashed #ffffff;
-        }
-
-    .image-title-wrap {
-        padding: 0 15px 15px 15px;
-        color: #222;
-    }
-
-    .drag-text {
-        text-align: center;
-    }
-
-        .drag-text h3 {
-            font-weight: 100;
-            text-transform: uppercase;
-            color: #15824B;
-            padding: 60px 0;
-        }
-
-    .file-upload-image {
-        height: 100%;
-        width: 100%;
-        margin: auto;
-        padding: 5px;
-    }
-
-    .remove-image {
-        width: 200px;
-        margin: 0;
-        color: #fff;
-        background: #cd4535;
-        border: none;
-        padding: 10px;
-        border-radius: 4px;
-        border-bottom: 4px solid #b02818;
-        transition: all .2s ease;
-        outline: none;
-        text-transform: uppercase;
-        font-weight: 700;
-    }
-
 
     .table {
         overflow-x: auto;
@@ -315,7 +221,7 @@
     }
 
         .ibox-title h2 {
-            margin: 5px 0 0;
+            margin: 15px 0 0;
             font-size: 21px;
         }
 
@@ -333,16 +239,9 @@
     }
 
     .table-title .btn {
-        color: #566787;
+        
         float: right;
-        font-size: 13px;
-        background: #fff;
-        border: none;
-        min-width: 50px;
-        border-radius: 2px;
-        border: none;
-        outline: none !important;
-        margin-left: 10px;
+        
     }
 
         .table-title .btn:hover, .table-title .btn:focus {
@@ -418,82 +317,7 @@
         font-size: 19px;
     }
 
-    table.table .avatar {
-        border-radius: 50%;
-        vertical-align: middle;
-        margin-right: 10px;
-        max-width: 50px;
-        max-height: 50px;
-    }
 
-    .img-thumbnail {
-        vertical-align: middle;
-        max-width: 100px;
-        max-height: 100px;
-    }
-
-    .status {
-        font-size: 30px;
-        margin: 2px 2px 0 0;
-        display: inline-block;
-        vertical-align: middle;
-        line-height: 10px;
-    }
-
-    .text-success {
-        color: #10c469;
-    }
-
-    .text-info {
-        color: #62c9e8;
-    }
-
-    .text-warning {
-        color: #FFC107;
-    }
-
-    .text-danger {
-        color: #ff5b5b;
-    }
-
-    .pagination {
-        float: right;
-        margin: 0 0 5px;
-    }
-
-        .pagination li a {
-            border: none;
-            font-size: 13px;
-            min-width: 30px;
-            min-height: 30px;
-            color: #999;
-            margin: 0 2px;
-            line-height: 30px;
-            border-radius: 2px !important;
-            text-align: center;
-            padding: 0 6px;
-        }
-
-            .pagination li a:hover {
-                color: #666;
-            }
-
-        .pagination li.active a, .pagination li.active a.page-link {
-            background: #03A9F4;
-        }
-
-            .pagination li.active a:hover {
-                background: #0397d6;
-            }
-
-        .pagination li.disabled i {
-            color: #ccc;
-        }
-
-        .pagination li i {
-            font-size: 16px;
-            padding-top: 6px
-        }
 
     .hint-text {
         float: left;
@@ -517,10 +341,6 @@
                             <div class="col-sm-7">
                                 <button id="btnAbrirModal" class="btn btn-primary" style="background-color:#FDFEFE;color:#222" data-toggle="modal" data-target="#reporte"><i class="fa fa-print"></i> Reporte Diario</button>
                                 <button id="btnNuevo" class="btn btn-primary" style="background-color:#FDFEFE;color:#222" data-toggle="modal" data-target="#nuevo"><i class="fa fa-print"></i> Nuevo plato</button>
-                                @*<a style="background-color:#fff;" ng-click="clickAgregar()" class="btn btn-primary"><i class="fa fa-plus-square"></i> <span>Agregar nuevo plato</span></a>*@
-
-
-                                @*<a href="#" class="btn btn-primary"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>*@
                             </div>
                         </div>
                     </div>
@@ -546,8 +366,9 @@
                                             <tr ng-repeat="l in listaMenu">
                                                 <td>{{$index + 1}}</td>
                                                 <td>{{l.nombre_plato}}</td>
-                                                <td>{{l.precio_unitario}}</td>
-                                                <td>{{l.cantidad_plato}}</td>
+                                                <td>Bs. {{l.precio_unitario}}</td>
+                                                <td ng-if="l.cantidad_plato == 0" style="color:red">{{l.cantidad_plato}}</td>
+                                                <td ng-if="l.cantidad_plato != 0">{{l.cantidad_plato}}</td>
                                                 <td style="cursor: pointer;">
                                                     <a ng-click="seleccionarPlato(l.id_plato)" class="settings" title="Editar plato" data-toggle="modal" data-target="#editar"><i class="fa fa-edit" style="color: #1c84c6"></i></a>
                                                     <a ng-click="eliminarPlato(l.id_plato, l.nombre_plato)" class="delete" title="Eliminar plato" data-toggle="tooltip"><i class="fa fa-user-times"></i></a>

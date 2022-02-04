@@ -14,10 +14,12 @@
 
 
 -- Volcando estructura de base de datos para gustov
+DROP DATABASE IF EXISTS `gustov`;
 CREATE DATABASE IF NOT EXISTS `gustov` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `gustov`;
 
 -- Volcando estructura para tabla gustov.platos
+DROP TABLE IF EXISTS `platos`;
 CREATE TABLE IF NOT EXISTS `platos` (
   `id_plato` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_plato` varchar(50) DEFAULT NULL,
@@ -33,10 +35,11 @@ INSERT INTO `platos` (`id_plato`, `nombre_plato`, `cantidad_plato`, `precio_unit
 	(1, 'Picante de Pollo', 13, 12.50),
 	(2, 'Charque', 10, 10.00),
 	(3, 'Pique', 0, 10.00),
-	(4, 'Pailita', 12, 18.50);
+	(4, 'Pailita', 6, 18.50);
 /*!40000 ALTER TABLE `platos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla gustov.registro_ventas
+DROP TABLE IF EXISTS `registro_ventas`;
 CREATE TABLE IF NOT EXISTS `registro_ventas` (
   `id_ventas` int(11) NOT NULL AUTO_INCREMENT,
   `id_plato` int(11) NOT NULL DEFAULT 0,
@@ -47,19 +50,21 @@ CREATE TABLE IF NOT EXISTS `registro_ventas` (
   `descripcion_venta` text DEFAULT NULL,
   PRIMARY KEY (`id_ventas`),
   KEY `id_plato` (`id_plato`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='Registro de las ventas de los platos del menu';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='Registro de las ventas de los platos del menu';
 
--- Volcando datos para la tabla gustov.registro_ventas: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla gustov.registro_ventas: ~5 rows (aproximadamente)
 DELETE FROM `registro_ventas`;
 /*!40000 ALTER TABLE `registro_ventas` DISABLE KEYS */;
 INSERT INTO `registro_ventas` (`id_ventas`, `id_plato`, `nombre_plato`, `cantidad_plato`, `precio_actual`, `fecha_venta`, `descripcion_venta`) VALUES
 	(1, 1, 'Picante de Pollo', 2, 12.50, '2022-02-04', 'Venta para llevar'),
 	(2, 2, 'Charque', 10, 10.00, '2022-02-04', 'Se vendió a un grupo de la iglesia'),
 	(3, 3, 'Pique', 30, 10.00, '2022-02-04', 'Se vendió a una delegación'),
-	(4, 4, 'Pailita', 13, 18.50, '2022-02-04', 'Se vendió al evento de Caleb');
+	(4, 4, 'Pailita', 13, 18.50, '2022-02-04', 'Se vendió al evento de Caleb'),
+	(5, 4, 'Pailita', 6, 18.50, '2022-02-04', 'Última venta del día');
 /*!40000 ALTER TABLE `registro_ventas` ENABLE KEYS */;
 
 -- Volcando estructura para procedimiento gustov.reporte_diario
+DROP PROCEDURE IF EXISTS `reporte_diario`;
 DELIMITER //
 CREATE PROCEDURE `reporte_diario`(
 	IN `fecha` DATE
@@ -83,6 +88,7 @@ END//
 DELIMITER ;
 
 -- Volcando estructura para disparador gustov.registro_ventas_after_insert
+DROP TRIGGER IF EXISTS `registro_ventas_after_insert`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `registro_ventas_after_insert` AFTER INSERT ON `registro_ventas` FOR EACH ROW BEGIN

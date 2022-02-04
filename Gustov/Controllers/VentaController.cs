@@ -17,10 +17,9 @@ namespace Gustov.Controllers
             return View();
         }
 
+        //Método para guardar el nuevo registro de venta
         public JsonResult insertarVenta(registro_ventas ventas)
         {
-
-            // Insertar Nueva venta
 
             var plato = (from p in db.platos
                          where p.id_plato == ventas.id_plato
